@@ -13,12 +13,10 @@ module.exports = {
     contentBase: './dist',
   },
   plugins: [
-    new GoogleFontsPlugin({
-      fonts: [
-        { family: "Nunito" },
-      ]
-    }),
     new CleanWebpackPlugin(),
+    new GoogleFontsPlugin({fonts: [
+      { family: "Nunito" },
+    ]}),
     new HtmlWebpackPlugin({
       title: 'Output Management'
     })
