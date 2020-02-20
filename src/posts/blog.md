@@ -12,3 +12,5 @@ To do the routing just add index.html to the Error Document in
 's3>seanblog.com>Properties>Static website hosting' 
 
 Then you can render different functions depending on `window.location.pathname`
+
+The next part is to have the blogs adhear to a folder structure.
