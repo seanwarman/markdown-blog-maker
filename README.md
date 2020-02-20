@@ -8,7 +8,6 @@ the command
 npm run sync
 ```
 
-To do the routing just add index.html to the Error Document in
-'s3>seanblog.com>Properties>Static website hosting' 
+You can find the project hosted at
 
-Then you can render different functions depending on `window.location.pathname`
+[Seanblog](http://seanblog.com.s3-website.eu-west-2.amazonaws.com/)
