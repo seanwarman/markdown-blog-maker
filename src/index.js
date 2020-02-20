@@ -2,7 +2,7 @@ import './style.css';
 import showdown from 'showdown';
 
 const importAll = (r) => r.keys().map(r)
-const mdFiles = importAll(require.context('./posts', false, /\.md$/))
+const postsFiles = importAll(require.context('./posts', false, /\.md$/))
   .sort().reverse()
 
 async function component(md) {
@@ -16,10 +16,16 @@ async function component(md) {
 }
 
 function routes(paths) {
-  const ul = document.createElement('ul');
-  ul.innerHTML = `
-    ${paths.map(path => `<li><a href="${window.location.href + path}">${path}</a></li>`).join('')}
-  `
+  const ul = document.createElement('ol');
+  ul.innerHTML = `${paths.map(path => `
+
+    <li>
+      <a href="${window.location.href + path}">
+        ${path}
+      </a>
+    </li>`
+
+  ).join('')}`
 
   document.body.appendChild(ul);
 
@@ -29,7 +35,7 @@ let index = 0
 let paths = []
 let fileNames = []
 
-for (let file of mdFiles) {
+for (let file of postsFiles) {
   paths.push(file.default.slice(0, file.default.indexOf('.md')))
 }
 
@@ -43,8 +49,6 @@ if(window.location.pathname === '/') {
       break
     }
   }
+
 }
-
-
-
 
