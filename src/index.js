@@ -2,7 +2,7 @@ import './style.css';
 import showdown from 'showdown';
 
 const importAll = (r) => r.keys().map(r)
-const postsFiles = importAll(require.context('./posts', false, /\.md$/))
+const vimFiles = importAll(require.context('./vim', false, /\.md$/))
   .sort().reverse()
 
 async function component(md) {
@@ -19,6 +19,7 @@ function routes(paths) {
   const ul = document.createElement('ol');
   ul.innerHTML = `${paths.map(path => `
 
+  <h1>Contents</h1>
     <li>
       <a href="${window.location.href + path}">
         ${path}
@@ -35,7 +36,7 @@ let index = 0
 let paths = []
 let fileNames = []
 
-for (let file of postsFiles) {
+for (let file of vimFiles) {
   paths.push(file.default.slice(0, file.default.indexOf('.md')))
 }
 

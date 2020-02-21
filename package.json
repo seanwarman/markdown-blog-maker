@@ -9,7 +9,8 @@
     "start": "webpack-dev-server --open",
     "server": "node server.js",
     "build": "webpack",
-    "sync": "node watcher.js"
+    "sync": "node watcher.js",
+    "deploy": "aws s3 sync ./dist s3://seanblog.com --acl public-read"
   },
   "keywords": [],
   "author": "",

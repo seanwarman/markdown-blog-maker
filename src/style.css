@@ -1,4 +1,28 @@
 html, body {
   font-family: 'Nunito', serif;
-  color: #181818;
+  color: #424242;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.1rem;
+  background: #ece9de;
+}
+
+body > div {
+  max-width: 620px;
+}
+
+pre {
+  background: #4d4846;
+  padding: 0.6rem;
+  border-radius: 5px;
+  color: #e6d1a1;
+}
+
+pre > code {
+  font-size: 0.9rem;
+}
+
+a {
+  color: #4da487;
 }
