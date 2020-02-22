@@ -2,6 +2,8 @@ import './style.css';
 import showdown from 'showdown';
 import homepage from './homepage.md'
 
+console.log(this)
+
 const importAll = (r) => r.keys().map(r)
 const posts = importAll(require.context('./posts', false, /\.md$/))
   .sort().reverse()
