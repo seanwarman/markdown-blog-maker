@@ -22,7 +22,7 @@ const importPostPaths = (context, category, array) => {
 }
 
 importPostPaths(require.context('./posts', false, /\.md$/), 'posts', posts)
-importPostPaths(require.context('./posts/design-patterns', false, /\.md$/), 'design-patterns', posts)
+importPostPaths(require.context('./design-patterns', false, /\.md$/), 'design-patterns', posts)
 
 posts.sort((a,b) => {
   if(a.title < b.title) {
@@ -51,7 +51,6 @@ async function renderPost(filename, posts) {
 
   datePosts.reverse()
 
-
   div.innerHTML = `
 
     ${
@@ -70,7 +69,7 @@ async function renderPost(filename, posts) {
         <h3>Posts</h3>
         ${datePosts.map(postObj => `
           <li>
-            <a href="${window.location.origin + '/' + postObj.title}">
+            <a href="${window.location.origin + '/posts/' + postObj.title}">
               ${postObj.title}
             </a>
           </li>
@@ -81,7 +80,7 @@ async function renderPost(filename, posts) {
         <h3>Design Patterns</h3>
         ${designPosts.map(postObj => `
           <li>
-            <a href="${window.location.origin + '/' + postObj.title}">
+            <a href="${window.location.origin + '/design-patterns/' + postObj.title}">
               ${postObj.title}
             </a>
           </li>
@@ -109,7 +108,11 @@ if(window.location.pathname === '/') {
   renderPost(homepage, posts)
 } else {
   for(let postObj of posts) {
-    if(window.location.pathname === '/' + postObj.title) {
+    if(window.location.pathname === '/posts/' + postObj.title) {
+      renderPost(postObj.filename, posts)
+      break
+    }
+    if(window.location.pathname === '/design-patterns/' + postObj.title) {
       renderPost(postObj.filename, posts)
       break
     }

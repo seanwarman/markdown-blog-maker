@@ -8,6 +8,11 @@ module.exports = {
   entry: {
     app: './src/index.js',
   },
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: 'http://seanblog.com.s3-website.eu-west-2.amazonaws.com'
+  },
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
@@ -18,13 +23,9 @@ module.exports = {
       { family: "Nunito" },
     ]}),
     new HtmlWebpackPlugin({
-      title: 'Output Management'
+      title: 'Stuff That\'s Tough'
     })
   ],
-  output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
-  },
   module: {
     rules: [
       {
@@ -35,10 +36,26 @@ module.exports = {
         ]
       },
       {
-        test: /\.(jpeg|jpg|gif|png|svg|md)$/,
+        test: /\.(jpeg|jpg|gif|png|svg)$/,
         loader: 'file-loader',
         options: { 
           name: '[name].[ext]'
+        },
+      },
+      {
+        test: /\.md$/,
+        loader: 'file-loader',
+        options: { 
+          name: '[name].[ext]',
+          outputPath: (url, resPath, context) => {
+            if(/posts/.test(resPath)) {
+              return 'posts/' + url
+            }
+            if(/design-patterns/.test(resPath)) {
+              return 'design-patterns/' + url
+            }
+            return '/' + url
+          }
         },
       }
     ]
