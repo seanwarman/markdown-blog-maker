@@ -1,29 +1,66 @@
-import './style.css';
-import showdown from 'showdown';
+import './style.css'
+import 'highlight.js/styles/atelier-estuary-dark.css';
+import marked from 'marked'
+import hljs from 'highlight.js'
 import homepage from './homepage.md'
 
-console.log(this)
+let posts = []
 
-const importAll = (r) => r.keys().map(r)
-const posts = importAll(require.context('./posts', false, /\.md$/))
-  .sort().reverse()
+const importPostPaths = (context, category, array) => { 
 
-async function renderPost(md, paths) {
-  const res = await fetch(md)
+  const paths = context.keys().map(path => path)
+
+  if(paths.length > 0) {
+    for(let path of paths) {
+      array.push({ 
+        filename: path.slice(2),
+        title: path.slice(2, path.indexOf('.md')),
+        category: category
+      })
+    }
+  }
+}
+
+importPostPaths(require.context('./posts', false, /\.md$/), 'posts', posts)
+importPostPaths(require.context('./posts/design-patterns', false, /\.md$/), 'design-patterns', posts)
+
+posts.sort((a,b) => {
+  if(a.title < b.title) {
+    return -1
+  }
+  if(a.title > b.title) {
+    return 1
+  }
+  return 0
+})
+
+async function renderPost(filename, posts) {
+
+  const res = await fetch(filename)
   const text = await res.text()
-  const converter = new showdown.Converter();
-
   const div = document.createElement('div');
+
+
+  const datePosts = []
+  const designPosts = []
+
+  posts.forEach(postObj => {
+    if(postObj.category !== 'design-patterns') datePosts.push(postObj)
+    else designPosts.push(postObj)
+  })
+
+  datePosts.reverse()
+
 
   div.innerHTML = `
 
     ${
       window.location.pathname != '/' ?
-        `<a 
+      `<a 
         class="back"
         href="${window.location.origin}"
-      >back</a>`
-        :
+      >Home</a>`
+      :
       ''
     }
 
@@ -31,39 +68,49 @@ async function renderPost(md, paths) {
 
       <ul>
         <h3>Posts</h3>
-        ${paths.map(path => `
+        ${datePosts.map(postObj => `
           <li>
-            <a href="${window.location.origin + '/' + path}">
-              ${path}
+            <a href="${window.location.origin + '/' + postObj.title}">
+              ${postObj.title}
+            </a>
+          </li>
+        `).join('')}
+      </ul>
+
+      <ul>
+        <h3>Design Patterns</h3>
+        ${designPosts.map(postObj => `
+          <li>
+            <a href="${window.location.origin + '/' + postObj.title}">
+              ${postObj.title}
             </a>
           </li>
         `).join('')}
       </ul>
 
     </div>
-
-    ${converter.makeHtml(text)}
+    ${marked(text, {
+      renderer: new marked.Renderer(),
+      highlight: function(code, language) {
+        const validLang = hljs.getLanguage(language) ? language : 'plaintext'
+        return hljs.highlight(validLang, code).value
+      }
+    })}
 
   `
+  // ${converter.makeHtml(text)}
 
   document.body.appendChild(div);
 }
 
-let index = 0
-let paths = []
-let fileNames = []
-
-for (let file of posts) {
-  paths.push(file.default.slice(0, file.default.indexOf('.md')))
-}
 
 if(window.location.pathname === '/') {
   // A hardcoded homepage
-  renderPost(homepage, paths)
+  renderPost(homepage, posts)
 } else {
-  for(let path of paths) {
-    if(window.location.pathname === '/' + path) {
-      renderPost(path+'.md', paths)
+  for(let postObj of posts) {
+    if(window.location.pathname === '/' + postObj.title) {
+      renderPost(postObj.filename, posts)
       break
     }
   }

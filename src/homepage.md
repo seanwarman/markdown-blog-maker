@@ -1,7 +1,7 @@
 # Stuff That's Tough
 
 My name's Sean Warman and I've been a developer since 2018. 
-Here's some tips and tricks I've learned mainly so I
+Here's some tips and tricks I've learned, mainly so I
 don't forget them myself.
 
 This project is a kind of learning process as I'm
@@ -16,5 +16,5 @@ a folder of files on an s3 bucket rather than as obfuscated
 binary code on a server.
 
 I've made a controller that will read the folder, list all the
-items in it and render them in the **Posts** section on the 
+items in it and render them in the section on the 
 right, it also makes a uri for each one.

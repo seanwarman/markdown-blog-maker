@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@beyonk/google-fonts-webpack-plugin": "^1.2.3",
-    "redux": "^4.0.5",
-    "showdown": "^1.9.1"
+    "highlight.js": "^9.18.1",
+    "marked": "^0.8.0"
   }
 }

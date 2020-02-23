@@ -7,21 +7,39 @@ html, body {
   align-items: center;
   font-size: 1.1rem;
   background: #ece9de;
+  padding-bottom: 90px;
 }
 
 body > div {
-  max-width: 620px;
+  max-width: 750px;
+  margin: 0 190px 0 120px;
+}
+
+@media(max-width: 1300px) {
+  body > div {
+    max-width: 560px;
+  }
 }
 
 pre {
-  background: #4d4846;
+  overflow-x: scroll;
+  background: #2b2b2b;
   padding: 0.6rem;
   border-radius: 5px;
   color: #e6d1a1;
+  transition: all .3s;
 }
 
 pre > code {
-  font-size: 0.9rem;
+  font-size: 0.9em;
+}
+
+code {
+  background: #2b2b2b;
+  padding: 0.1em;
+  border-radius: 2px;
+  color: #e6d1a1;
+  font-size: .8em;
 }
 
 a {
