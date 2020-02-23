@@ -1,8 +1,8 @@
-import './style.css'
-import 'highlight.js/styles/atelier-estuary-dark.css';
 import marked from 'marked'
 import hljs from 'highlight.js'
 import homepage from './homepage.md'
+import './style.css'
+import 'highlight.js/styles/atelier-estuary-dark.css';
 
 let posts = []
 
@@ -97,7 +97,6 @@ async function renderPost(filename, posts) {
     })}
 
   `
-  // ${converter.makeHtml(text)}
 
   document.body.appendChild(div);
 }
