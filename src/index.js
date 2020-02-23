@@ -103,7 +103,7 @@ async function renderPost(basePath, filename, posts) {
 
 if(window.location.pathname === '/') {
   // A hardcoded homepage
-  renderPost(__webpack_public_path__, 'homepage.md', posts)
+  renderPost(__webpack_public_path__, '/homepage.md', posts)
 } else {
   for(let postObj of posts) {
     if(window.location.pathname === '/archive/' + postObj.title) {

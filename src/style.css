@@ -36,7 +36,7 @@ pre > code {
 
 code {
   background: #2b2b2b;
-  padding: 0.1em;
+  padding: .1em .4em;
   border-radius: 2px;
   color: #e6d1a1;
   font-size: .8em;

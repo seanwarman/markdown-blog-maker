@@ -1,2 +1,4 @@
 node_modules
 dist
+src/posts/archive/*.md
+src/posts/design-patterns/*.md
