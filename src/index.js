@@ -1,6 +1,5 @@
 import marked from 'marked'
 import hljs from 'highlight.js'
-import homepage from './homepage.md'
 import './style.css'
 import 'highlight.js/styles/atelier-estuary-dark.css';
 
@@ -21,8 +20,8 @@ const importPostPaths = (context, category, array) => {
   }
 }
 
-importPostPaths(require.context('./posts', false, /\.md$/), 'posts', posts)
-importPostPaths(require.context('./design-patterns', false, /\.md$/), 'design-patterns', posts)
+importPostPaths(require.context('./posts/archive', false, /\.md$/), 'archive', posts)
+importPostPaths(require.context('./posts/design-patterns', false, /\.md$/), 'design-patterns', posts)
 
 posts.sort((a,b) => {
   if(a.title < b.title) {
@@ -34,9 +33,9 @@ posts.sort((a,b) => {
   return 0
 })
 
-async function renderPost(filename, posts) {
+async function renderPost(basePath, filename, posts) {
 
-  const res = await fetch(filename)
+  const res = await fetch(basePath + '/' + filename)
   const text = await res.text()
   const div = document.createElement('div');
 
@@ -66,10 +65,10 @@ async function renderPost(filename, posts) {
     <div class="sider">
 
       <ul>
-        <h3>Posts</h3>
+        <h3>Archive</h3>
         ${datePosts.map(postObj => `
           <li>
-            <a href="${window.location.origin + '/posts/' + postObj.title}">
+            <a href="${window.location.origin + '/archive/' + postObj.title}">
               ${postObj.title}
             </a>
           </li>
@@ -104,15 +103,15 @@ async function renderPost(filename, posts) {
 
 if(window.location.pathname === '/') {
   // A hardcoded homepage
-  renderPost(homepage, posts)
+  renderPost(__webpack_public_path__, 'homepage.md', posts)
 } else {
   for(let postObj of posts) {
-    if(window.location.pathname === '/posts/' + postObj.title) {
-      renderPost(postObj.filename, posts)
+    if(window.location.pathname === '/archive/' + postObj.title) {
+      renderPost(__webpack_public_path__ + '/posts/archive', postObj.filename, posts)
       break
     }
     if(window.location.pathname === '/design-patterns/' + postObj.title) {
-      renderPost(postObj.filename, posts)
+      renderPost(__webpack_public_path__ + '/posts/design-patterns', postObj.filename, posts)
       break
     }
   }

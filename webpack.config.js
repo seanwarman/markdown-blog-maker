@@ -68,11 +68,11 @@ module.exports = {
         options: { 
           name: '[name].[ext]',
           outputPath: (filename, resPath, context) => {
-            if(/posts/.test(resPath)) {
-              return 'posts/' + filename
+            if(/archive/.test(resPath)) {
+              return 'posts/archive/' + filename
             }
             if(/design-patterns/.test(resPath)) {
-              return 'design-patterns/' + filename
+              return 'posts/design-patterns/' + filename
             }
             return '/' + filename
           }
