@@ -2,6 +2,7 @@ import marked from 'marked'
 import hljs from 'highlight.js'
 import './style.css'
 import 'highlight.js/styles/atelier-estuary-dark.css';
+import homepage from './homepage.js'
 
 let posts = []
 
@@ -33,10 +34,8 @@ posts.sort((a,b) => {
   return 0
 })
 
-async function renderPost(basePath, filename, posts) {
+async function renderPost(text, posts) {
 
-  const res = await fetch(basePath + '/' + filename)
-  const text = await res.text()
   const div = document.createElement('div');
 
 
@@ -100,18 +99,23 @@ async function renderPost(basePath, filename, posts) {
   document.body.appendChild(div);
 }
 
+async function renderPostFromMd(basePath, filename, posts) {
+  const res = await fetch(basePath + '/' + filename)
+  const text = await res.text()
+  renderPost(text, posts)
+}
 
 if(window.location.pathname === '/') {
   // A hardcoded homepage
-  renderPost(__webpack_public_path__, '/homepage.md', posts)
+  renderPost(homepage, posts)
 } else {
   for(let postObj of posts) {
     if(window.location.pathname === '/archive/' + postObj.title) {
-      renderPost(__webpack_public_path__ + '/posts/archive', postObj.filename, posts)
+      renderPostFromMd(__webpack_public_path__ + '/posts/archive', postObj.filename, posts)
       break
     }
     if(window.location.pathname === '/design-patterns/' + postObj.title) {
-      renderPost(__webpack_public_path__ + '/posts/design-patterns', postObj.filename, posts)
+      renderPostFromMd(__webpack_public_path__ + '/posts/design-patterns', postObj.filename, posts)
       break
     }
   }
