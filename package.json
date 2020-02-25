@@ -28,6 +28,7 @@
   "dependencies": {
     "@beyonk/google-fonts-webpack-plugin": "^1.2.3",
     "highlight.js": "^9.18.1",
-    "marked": "^0.8.0"
+    "marked": "^0.8.0",
+    "xml2js": "^0.4.23"
   }
 }

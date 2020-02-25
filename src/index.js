@@ -1,8 +1,20 @@
-import marked from 'marked'
-import hljs from 'highlight.js'
+import { parseString } from 'xml2js'
 import './style.css'
 import 'highlight.js/styles/atelier-estuary-dark.css';
 import homepage from './homepage.js'
+import { post, postFromMd } from './components/posts.js'
+
+
+
+// parseString(xml, function (err, result) {
+//       console.dir(result);
+// });
+
+
+const path = 'http://seanblog.com.s3.eu-west-2.amazonaws.com/?list-type=2'
+
+
+
 
 let posts = []
 
@@ -34,88 +46,38 @@ posts.sort((a,b) => {
   return 0
 })
 
-async function renderPost(text, posts) {
+function renderFromText(text, posts) {
 
   const div = document.createElement('div');
 
-
-  const datePosts = []
-  const designPosts = []
-
-  posts.forEach(postObj => {
-    if(postObj.category !== 'design-patterns') datePosts.push(postObj)
-    else designPosts.push(postObj)
-  })
-
-  datePosts.reverse()
-
-  div.innerHTML = `
-
-    ${
-      window.location.pathname != '/' ?
-      `<a 
-        class="back"
-        href="${window.location.origin}"
-      >Home</a>`
-      :
-      ''
-    }
-
-    <div class="sider">
-
-      <ul>
-        <h3>Archive</h3>
-        ${datePosts.map(postObj => `
-          <li>
-            <a href="${window.location.origin + '/archive/' + postObj.title}">
-              ${postObj.title}
-            </a>
-          </li>
-        `).join('')}
-      </ul>
-
-      <ul>
-        <h3>Design Patterns</h3>
-        ${designPosts.map(postObj => `
-          <li>
-            <a href="${window.location.origin + '/design-patterns/' + postObj.title}">
-              ${postObj.title}
-            </a>
-          </li>
-        `).join('')}
-      </ul>
-
-    </div>
-    ${marked(text, {
-      renderer: new marked.Renderer(),
-      highlight: function(code, language) {
-        const validLang = hljs.getLanguage(language) ? language : 'plaintext'
-        return hljs.highlight(validLang, code).value
-      }
-    })}
-
-  `
+  div.innerHTML = post(text, posts)
 
   document.body.appendChild(div);
 }
 
-async function renderPostFromMd(basePath, filename, posts) {
-  const res = await fetch(basePath + '/' + filename)
-  const text = await res.text()
-  renderPost(text, posts)
+async function renderFromMd(basePath, filename, posts) {
+
+  const text = await postFromMd(basePath, filename)
+
+  const div = document.createElement('div');
+
+  div.innerHTML = post(text, posts)
+
+  document.body.appendChild(div);
 }
+
 
 if(window.location.pathname === '/') {
   // A hardcoded homepage
-  renderPost(homepage, posts)
+  renderFromText(homepage, posts)
 } else {
   for(let postObj of posts) {
     if(window.location.pathname === '/archive/' + postObj.title) {
-      renderPostFromMd(__webpack_public_path__ + '/posts/archive', postObj.filename, posts)
+      renderFromMd(__webpack_public_path__ + '/posts/archive', postObj.filename, posts)
       break
     }
     if(window.location.pathname === '/design-patterns/' + postObj.title) {
-      renderPostFromMd(__webpack_public_path__ + '/posts/design-patterns', postObj.filename, posts)
+      renderFromMd(__webpack_public_path__ + '/posts/design-patterns', postObj.filename, posts)
       break
     }
   }
