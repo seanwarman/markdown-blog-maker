@@ -8,7 +8,7 @@ export async function postFromMd(basePath, filename) {
   // renderPost(text, posts)
 }
 
-export async function post(text, posts) {
+export function post(text, posts) {
 
   const datePosts = []
   const designPosts = []

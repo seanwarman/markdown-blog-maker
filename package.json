@@ -10,7 +10,8 @@
     "server": "node server.js",
     "build": "webpack",
     "sync": "node watcher.js",
-    "deploy": "aws s3 rm s3://seanblog.com --recursive; aws s3 sync ./dist s3://seanblog.com --acl public-read"
+    "deploypure": "aws s3 rm s3://seanblog.com --recursive; aws s3 sync ./dist s3://seanblog.com --acl public-read",
+    "deploy": "aws s3 sync ./dist s3://seanblog.com --acl public-read"
   },
   "keywords": [],
   "author": "",
