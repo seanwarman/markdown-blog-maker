@@ -6,7 +6,7 @@ import { parseString } from 'xml2js'
 
 // Now i'm fetching the folder structure from the s3 bucket
 // webpack doesn't build the posts so I'm cheating here 
-// by reading the folder so it does.
+// by reading the posts folder so it does.
 require.context('./posts', true, /\.md$/)
 
 const path = 'http://seanblog.com.s3.eu-west-2.amazonaws.com/?list-type=2'
@@ -61,12 +61,9 @@ async function render() {
     renderFromText(homepage, posts)
   } else {
     for(let postObj of posts) {
-      if(window.location.pathname === '/archive/' + postObj.title) {
-        renderFromMd(__webpack_public_path__ + '/posts/archive', postObj.filename, posts)
-        break
-      }
-      if(window.location.pathname === '/design-patterns/' + postObj.title) {
-        renderFromMd(__webpack_public_path__ + '/posts/design-patterns', postObj.filename, posts)
+
+      if(window.location.pathname === `/${postObj.category}/` + postObj.title) {
+        renderFromMd(__webpack_public_path__ + `/posts/${postObj.category}`, postObj.filename, posts)
         break
       }
     }

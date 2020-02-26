@@ -3,22 +3,33 @@ import hljs from 'highlight.js'
 
 export async function postFromMd(basePath, filename) {
   const res = await fetch(basePath + '/' + filename)
-  const text = await res.text()
-  return text
-  // renderPost(text, posts)
+  return await res.text()
 }
 
 export function post(text, posts) {
 
-  const datePosts = []
-  const designPosts = []
+  // const datePosts = []
+  // const designPosts = []
+
+  // posts.forEach(postObj => {
+  //   if(postObj.category !== 'design-patterns') datePosts.push(postObj)
+  //   else designPosts.push(postObj)
+  // })
+
+  // datePosts.reverse()
+
+  const postsByCat = {}
 
   posts.forEach(postObj => {
-    if(postObj.category !== 'design-patterns') datePosts.push(postObj)
-    else designPosts.push(postObj)
+    if(!postsByCat[postObj.category]) postsByCat[postObj.category] = []
+    postsByCat[postObj.category].push(postObj)
   })
 
-  datePosts.reverse()
+
+  if(postsByCat.archive) {
+    postsByCat.archive.reverse()
+  }
+
 
   return `
 
@@ -33,27 +44,24 @@ export function post(text, posts) {
 
     <div class="sider">
 
-      <ul>
-        <h3>Archive</h3>
-        ${datePosts.map(postObj => `
-          <li>
-            <a href="${window.location.origin + '/archive/' + postObj.title}">
-              ${postObj.title}
-            </a>
-          </li>
-        `).join('')}
-      </ul>
+      ${Object.keys(postsByCat).map(category => (`
+          
+        <ul>
+          <h3>${category.slice(0,1).toUpperCase() + category.slice(1, category.length)}</h3>
+          ${postsByCat[category].map(postObj => (`
+            
+            <li>
+              <a href="${window.location.origin + `/${category}/` + postObj.title}">
+                ${postObj.title}
+              </a>
+            </li>
 
-      <ul>
-        <h3>Design Patterns</h3>
-        ${designPosts.map(postObj => `
-          <li>
-            <a href="${window.location.origin + '/design-patterns/' + postObj.title}">
-              ${postObj.title}
-            </a>
-          </li>
-        `).join('')}
-      </ul>
+
+          `)).join('')}
+        </ul>
+
+      `)).join('')}
+
 
     </div>
 
