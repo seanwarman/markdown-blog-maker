@@ -46,6 +46,12 @@ a {
   color: #4da487;
 }
 
+#loading-text {
+  height: 70vh;
+  display: flex;
+  align-items: center;
+}
+
 .sider {
   position: absolute;
   right: 50px;

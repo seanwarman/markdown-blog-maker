@@ -35,36 +35,52 @@ async function getPosts(path) {
 
 }
 
+function renderLoading() {
+  const loading = document.createElement('div')
 
-async function renderFromText(text, posts) {
+  loading.innerHTML = `
+    <h1 id="loading-text">loading...</h1>
+  `
+
+  document.body.appendChild(loading)
+  return loading
+}
+
+async function renderFromText(text, posts, loadingElement) {
+
+  if(loadingElement) document.body.removeChild(loadingElement)
 
   const div = document.createElement('div');
   div.innerHTML = post(text, posts)
   document.body.appendChild(div);
+  return div
 }
 
-async function renderFromMd(basePath, filename, posts) {
+async function renderFromMd(basePath, filename, posts, loadingElement) {
 
   const text = await postFromMd(basePath, filename)
 
+  if(loadingElement) document.body.removeChild(loadingElement)
+
   const div = document.createElement('div');
   div.innerHTML = post(text, posts)
   document.body.appendChild(div);
+  return div
 }
 
 
-async function render() {
+async function render(loading) {
 
   const posts = await getPosts(path)
 
   if(window.location.pathname === '/') {
     // A hardcoded homepage
-    renderFromText(homepage, posts)
+    renderFromText(homepage, posts, loading)
   } else {
     for(let postObj of posts) {
 
       if(window.location.pathname === `/${postObj.category}/` + postObj.title) {
-        renderFromMd(__webpack_public_path__ + `/posts/${postObj.category}`, postObj.filename, posts)
+        renderFromMd(__webpack_public_path__ + `/posts/${postObj.category}`, postObj.filename, posts, loading)
         break
       }
     }
@@ -73,4 +89,5 @@ async function render() {
 
 }
 
-render()
+const loading = renderLoading()
+render(loading)
