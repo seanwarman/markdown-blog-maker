@@ -1,8 +1,9 @@
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const GoogleFontsPlugin = require("@beyonk/google-fonts-webpack-plugin")
- 
+const { publicPath, url } = require('./credentials.js')
+
 module.exports = {
   mode: 'development',
   entry: {
@@ -16,7 +17,7 @@ module.exports = {
     // anywhere. Js doesn't control the routing so when we go to a different 
     // uri the html has to redefine where to get it's resources from so putting
     // the bucket's address here gives the src attribute a full base path.
-    publicPath: 'http://seanblog.com.s3-website.eu-west-2.amazonaws.com'
+    publicPath
   },
   devtool: 'inline-source-map',
   devServer: {

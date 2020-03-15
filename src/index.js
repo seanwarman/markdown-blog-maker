@@ -3,13 +3,14 @@ import 'highlight.js/styles/atelier-estuary-dark.css'
 import homepage from './homepage.js'
 import { post, postFromMd } from './components/posts.js'
 import { parseString } from 'xml2js'
+import { url, apiPath } from '../credentials.js'
 
 // Now i'm fetching the folder structure from the s3 bucket
 // webpack doesn't build the posts so I'm cheating here 
 // by reading the posts folder so it does.
 require.context('./posts', true, /\.md$/)
 
-const path = 'http://seanblog.com.s3.eu-west-2.amazonaws.com/?list-type=2'
+const path = apiPath
 
 async function getPosts(path) {
   let posts = []
