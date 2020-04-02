@@ -53,13 +53,26 @@ a {
 }
 
 .sider {
-  position: absolute;
   right: 50px;
   top: 16px;
 }
-
 .back {
-  position: absolute;
   left: 40px;
   top: 40px;
+}
+@media (min-width: 1100px) {
+  .sider {
+    position: absolute;
+  }
+  .back {
+    position: absolute;
+  }
+}
+@media (max-width: 1100px) {
+  .sider {
+    font-size: 1.5rem;
+  }
+  body > div {
+    margin: 0px 50px;
+  }
 }

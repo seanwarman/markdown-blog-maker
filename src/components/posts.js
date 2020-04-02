@@ -8,15 +8,6 @@ export async function postFromMd(basePath, filename) {
 
 export function post(text, posts) {
 
-  // const datePosts = []
-  // const designPosts = []
-
-  // posts.forEach(postObj => {
-  //   if(postObj.category !== 'design-patterns') datePosts.push(postObj)
-  //   else designPosts.push(postObj)
-  // })
-
-  // datePosts.reverse()
 
   const postsByCat = {}
 
@@ -42,6 +33,14 @@ export function post(text, posts) {
       ''
     }
 
+    ${marked(text, {
+      renderer: new marked.Renderer(),
+      highlight: function(code, language) {
+        const validLang = hljs.getLanguage(language) ? language : 'plaintext'
+        return hljs.highlight(validLang, code).value
+      }
+    })}
+
     <div class="sider">
 
       ${Object.keys(postsByCat).map(category => (`
@@ -64,15 +63,6 @@ export function post(text, posts) {
 
 
     </div>
-
-    ${marked(text, {
-      renderer: new marked.Renderer(),
-      highlight: function(code, language) {
-        const validLang = hljs.getLanguage(language) ? language : 'plaintext'
-        return hljs.highlight(validLang, code).value
-      }
-    })}
-
   `
 
 }

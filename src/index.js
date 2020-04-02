@@ -26,7 +26,8 @@ async function getPosts(path) {
         {
           filename: obj.Key[0].slice(obj.Key[0].lastIndexOf('/') + 1),
           title: obj.Key[0].slice(obj.Key[0].lastIndexOf('/') + 1, obj.Key[0].indexOf('.md')),
-          category: obj.Key[0].slice(obj.Key[0].indexOf('/') + 1, obj.Key[0].lastIndexOf('/'))
+          category: obj.Key[0].slice(obj.Key[0].indexOf('/') + 1, obj.Key[0].lastIndexOf('/')),
+          updated: obj.LastModified[0],
         }
       ))
   })
