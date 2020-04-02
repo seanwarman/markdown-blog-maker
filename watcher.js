@@ -1,3 +1,5 @@
+// This watches your project for changes and uploads to the 
+// bucket in credentials.js when you save a file.
 const fs = require('fs')
 const { exec } = require('child_process')
 const { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, url } = require('./credentials.js')

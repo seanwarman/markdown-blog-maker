@@ -1,4 +1,11 @@
-#!/bin/node
+#!/usr/bin/env node
+
+// This is a script written to run from your blog
+// folder once the app has been deployed.
+//
+// Just make a folder anywhere and put a credentials.js file
+// and a posts/ directory in it. Then you can run this script
+// whenever you're cdied in there.
 
 const { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, url } = require(process.env.PWD + '/credentials.js')
 const { exec } = require('child_process')

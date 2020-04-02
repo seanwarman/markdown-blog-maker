@@ -1,3 +1,5 @@
+// This uploads the /dist directory to you s3 bucket,
+// do this after running webpack
 const { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, url } = require('./credentials.js')
 const { exec } = require('child_process')
 
