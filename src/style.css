@@ -12,7 +12,7 @@ html, body {
 
 body > div {
   max-width: 750px;
-  margin: 0 190px 0 120px;
+  margin: 0 370px 0 0;
 }
 
 @media(max-width: 1300px) {
@@ -60,7 +60,7 @@ a {
   left: 40px;
   top: 40px;
 }
-@media (min-width: 1100px) {
+@media (min-width: 1701px) {
   .sider {
     position: absolute;
   }
@@ -68,7 +68,7 @@ a {
     position: absolute;
   }
 }
-@media (max-width: 1100px) {
+@media (max-width: 1700px) {
   .sider {
     font-size: 1.5rem;
   }

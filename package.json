@@ -10,7 +10,7 @@
     "server": "node server.js",
     "build": "webpack",
     "sync": "node watcher.js",
-    "deploypure": "aws s3 rm s3://seanblog.com --recursive; aws s3 sync ./dist s3://seanblog.com --acl public-read",
+    "deploypure": "aws s3 rm s3://www.stuffthatstough.com --recursive; aws s3 sync ./dist s3://www.stuffthatstough.com --acl public-read",
     "deploy": "node upload.js"
   },
   "keywords": [],

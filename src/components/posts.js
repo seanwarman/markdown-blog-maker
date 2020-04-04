@@ -18,7 +18,7 @@ export function post(text, posts) {
 
 
   if(postsByCat.archive) {
-    postsByCat.archive.reverse()
+    postsByCat.archive.sort((a,b) => a.updated - b.updated)
   }
 
 
@@ -50,8 +50,8 @@ export function post(text, posts) {
           ${postsByCat[category].map(postObj => (`
             
             <li>
-              <a href="${window.location.origin + `/${category}/` + postObj.title}">
-                ${postObj.title}
+              <a href="${window.location.origin + `/${category}/` + postObj.uri}">
+                ${postObj.title} 
               </a>
             </li>
 

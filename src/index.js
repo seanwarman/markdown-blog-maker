@@ -26,6 +26,7 @@ async function getPosts(path) {
         {
           filename: obj.Key[0].slice(obj.Key[0].lastIndexOf('/') + 1),
           title: obj.Key[0].slice(obj.Key[0].lastIndexOf('/') + 1, obj.Key[0].indexOf('.md')),
+          uri: encodeURIComponent(obj.Key[0].slice(obj.Key[0].lastIndexOf('/') + 1, obj.Key[0].indexOf('.md'))),
           category: obj.Key[0].slice(obj.Key[0].indexOf('/') + 1, obj.Key[0].lastIndexOf('/')),
           updated: obj.LastModified[0],
         }
@@ -74,13 +75,16 @@ async function render(loading) {
 
   const posts = await getPosts(path)
 
+  console.log(posts)
+
   if(window.location.pathname === '/') {
     // A hardcoded homepage
     renderFromText(homepage, posts, loading)
   } else {
     for(let postObj of posts) {
 
-      if(window.location.pathname === `/${postObj.category}/` + postObj.title) {
+      if(window.location.pathname === `/${postObj.category}/` + postObj.uri) {
+        console.log(postObj)
         renderFromMd(__webpack_public_path__ + `/posts/${postObj.category}`, postObj.filename, posts, loading)
         break
       }
