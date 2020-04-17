@@ -1,11 +1,11 @@
 import './style.css'
 import 'highlight.js/styles/atelier-estuary-dark.css'
 import homepage from './homepage.js'
-import { post, postFromMd } from './components/posts.js'
+import { post, postFromMd } from './posts.js'
 import { parseString } from 'xml2js'
-import { url, apiPath } from '../credentials.js'
+import { apiPath } from '../credentials.js'
 
-// Now i'm fetching the folder structure from the s3 bucket
+// Because i'm fetching the folder structure from the s3 bucket
 // webpack doesn't build the posts so I'm cheating here 
 // by reading the posts folder so it does.
 require.context('./posts', true, /\.md$/)
@@ -14,6 +14,7 @@ const path = apiPath
 
 async function getPosts(path) {
   let posts = []
+
   let res = await fetch(path)
 
   let text = await res.text()
@@ -28,7 +29,7 @@ async function getPosts(path) {
           title: obj.Key[0].slice(obj.Key[0].lastIndexOf('/') + 1, obj.Key[0].indexOf('.md')),
           uri: encodeURIComponent(obj.Key[0].slice(obj.Key[0].lastIndexOf('/') + 1, obj.Key[0].indexOf('.md'))),
           category: obj.Key[0].slice(obj.Key[0].indexOf('/') + 1, obj.Key[0].lastIndexOf('/')),
-          updated: obj.LastModified[0],
+          updated: new Date(obj.LastModified[0]),
         }
       ))
   })
@@ -73,9 +74,8 @@ async function renderFromMd(basePath, filename, posts, loadingElement) {
 
 async function render(loading) {
 
-  const posts = await getPosts(path)
 
-  console.log(posts)
+  const posts = await getPosts(path)
 
   if(window.location.pathname === '/') {
     // A hardcoded homepage
@@ -84,7 +84,6 @@ async function render(loading) {
     for(let postObj of posts) {
 
       if(window.location.pathname === `/${postObj.category}/` + postObj.uri) {
-        console.log(postObj)
         renderFromMd(__webpack_public_path__ + `/posts/${postObj.category}`, postObj.filename, posts, loading)
         break
       }

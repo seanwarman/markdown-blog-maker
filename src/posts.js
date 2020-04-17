@@ -2,11 +2,14 @@ import marked from 'marked'
 import hljs from 'highlight.js'
 
 export async function postFromMd(basePath, filename) {
+
+
   const res = await fetch(basePath + '/' + filename)
   return await res.text()
 }
 
 export function post(text, posts) {
+
 
 
   const postsByCat = {}
@@ -18,9 +21,8 @@ export function post(text, posts) {
 
 
   if(postsByCat.archive) {
-    postsByCat.archive.sort((a,b) => a.updated - b.updated)
+    postsByCat.archive.sort((a,b) => b.updated - a.updated)
   }
-
 
   return `
 

@@ -2,7 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const GoogleFontsPlugin = require("@beyonk/google-fonts-webpack-plugin")
-const { publicPath, url } = require('./credentials.js')
+const { publicPath } = require('./credentials.js')
 
 module.exports = {
   mode: 'development',

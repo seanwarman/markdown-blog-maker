@@ -17,7 +17,8 @@ body > div {
 
 @media(max-width: 1300px) {
   body > div {
-    max-width: 560px;
+    /* max-width: 560px; */
+    font-size: 1.8em;
   }
 }
 
@@ -70,7 +71,13 @@ a {
 }
 @media (max-width: 1700px) {
   .sider {
-    font-size: 1.5rem;
+    font-size: 1.4em;
+  }
+  .sider li {
+    margin: 1em 0;
+  }
+  .sider ul {
+    margin-top: 3em;
   }
   body > div {
     margin: 0px 50px;
