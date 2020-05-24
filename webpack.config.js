@@ -6,9 +6,7 @@ const { publicPath } = require('./credentials.js')
 
 module.exports = {
   mode: 'development',
-  entry: {
-    app: './src/index.js',
-  },
+  entry: [ 'babel-polyfill', './src/App.js' ],
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -22,6 +20,7 @@ module.exports = {
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
+    port: 3000
   },
   plugins: [
     new CleanWebpackPlugin(),
@@ -29,18 +28,14 @@ module.exports = {
       { family: "Nunito" },
     ]}),
     new HtmlWebpackPlugin({
-      title: 'Stuff That\'s Tough'
+      title: 'Stuff That\'s Tough',
+      template: 'public/index.html'
     })
   ],
   module: {
     rules: [
-      {
-        test: /\.css$/,
-        use: [
-          'style-loader',
-          'css-loader',
-        ]
-      },
+      {test: /\.(js)$/,  use:'babel-loader'},
+      {test: /\.css$/,   use:[ 'style-loader', 'css-loader', ]},
       {
         test: /\.(jpeg|jpg|gif|png|svg)$/,
         loader: 'file-loader',
