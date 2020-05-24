@@ -5,10 +5,14 @@ import { post, postFromMd } from './posts.js'
 import { parseString } from 'xml2js'
 import { apiPath } from '../credentials.js'
 
+
+
+
 import React from 'react'
 import { connect } from 'react-redux'
 import './style.css'
 import axios from 'axios'
+import { listPosts } from './actions.js'
 
 // Because i'm fetching the folder structure from the s3 bucket
 // webpack doesn't build the posts so I'm cheating here 
@@ -19,17 +23,8 @@ class Layout extends React.Component {
 
   componentDidMount = async () => {
 
-    console.log('apiPath: ', apiPath)
+    this.props.listPosts(apiPath)
 
-    let res
-
-    try {
-      res = await axios.get(apiPath)
-    } catch (err) {
-      console.log(err)
-    }
-
-    console.log('res: ', res)
 
   }
 
@@ -48,12 +43,30 @@ class Layout extends React.Component {
         THE MARKDOWN GOES HERE
 
         <div className="sider">
-          <ul>
-            <h3>Category Text</h3>
-            <li><a href="#">One link</a></li>
-            <li><a href="#">Second Link</a></li>
-            <li><a href="#">Another link</a></li>
-          </ul>
+          {
+            typeof this.props.posts === 'object' &&
+
+            Object.keys(this.props.posts).map(category => (
+
+              <ul key={category}>
+                <h3>
+                  {category.slice(0,1).toUpperCase() + category.slice(1, category.length)}
+                </h3>
+
+                {
+                  this.props.posts[category].map((postsObj, i) => (
+                    <li key={i}>
+                      <a href={window.location.origin + `/${category}/` + postsObj.uri}>
+                        {postsObj.title}
+                      </a>
+                    </li>
+                  ))
+                }
+
+              </ul>
+
+            ))
+          }
 
         </div>
 
@@ -66,8 +79,14 @@ class Layout extends React.Component {
 }
 
 export default connect(
-  state => ({}),
-  {}
+  state => ({
+    posts:  state.posts,
+    status: state.status,
+    reason: state.reason
+  }),
+  {
+    listPosts
+  }
 )(Layout)
 
 // const path = apiPath
