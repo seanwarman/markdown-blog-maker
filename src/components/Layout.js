@@ -1,29 +1,23 @@
-import './style.css'
-import 'highlight.js/styles/atelier-estuary-dark.css'
-import homepage from './homepage.js'
-import { post, postFromMd } from './posts.js'
-import { parseString } from 'xml2js'
-import { apiPath } from '../credentials.js'
+// import { post, postFromMd } from './posts.js'
 
 
+import homepage from '../homepage'
 
 
 import React from 'react'
 import { connect } from 'react-redux'
-import './style.css'
 import axios from 'axios'
-import { listPosts } from './actions.js'
+import { listPosts } from '../actions/bucketRequest.js'
+import { apiPath } from '../../credentials.js'
 
-// Because i'm fetching the folder structure from the s3 bucket
-// webpack doesn't build the posts so I'm cheating here 
-// by reading the posts folder so it does.
-require.context('./posts', true, /\.md$/)
+import Markdown from './Markdown.js'
 
 class Layout extends React.Component {
 
   componentDidMount = async () => {
 
     this.props.listPosts(apiPath)
+
 
 
   }
@@ -40,7 +34,9 @@ class Layout extends React.Component {
           >Home</a>
         }
 
-        THE MARKDOWN GOES HERE
+        <Markdown>
+          {homepage}
+        </Markdown>
 
         <div className="sider">
           {

@@ -1,3 +1,6 @@
+import thunkMiddleware from 'redux-thunk'
+import { createStore, applyMiddleware } from 'redux'
+
 const initialState = {
   posts: undefined,
   status: '',
@@ -6,8 +9,7 @@ const initialState = {
 }
 
 
-
-export default function crimeGraph(state, action) {
+function bucketRequest(state, action) {
   if(typeof state === 'undefined') {
     return initialState
   }
@@ -39,3 +41,10 @@ export default function crimeGraph(state, action) {
   }
 
 }
+
+export default createStore(
+  bucketRequest,
+  applyMiddleware(
+    thunkMiddleware
+  )
+)
