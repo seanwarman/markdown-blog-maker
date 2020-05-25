@@ -1,13 +1,14 @@
 import thunkMiddleware from 'redux-thunk'
 import { createStore, applyMiddleware } from 'redux'
+import { apiPath } from '../credentials.js'
 
 const initialState = {
+  apiPath,
   posts: undefined,
   status: '',
   reason: '',
   errorResult: undefined,
 }
-
 
 function bucketRequest(state, action) {
   if(typeof state === 'undefined') {
@@ -48,3 +49,4 @@ export default createStore(
     thunkMiddleware
   )
 )
+

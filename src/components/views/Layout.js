@@ -1,14 +1,6 @@
-// import { post, postFromMd } from './posts.js'
-
-
-import homepage from '../homepage'
-
-
 import React from 'react'
 import { connect } from 'react-redux'
-import axios from 'axios'
-import { listPosts } from '../actions/bucketRequest.js'
-import { apiPath } from '../../credentials.js'
+import { listPosts } from '../../actions/bucketRequest.js'
 
 import Markdown from './Markdown.js'
 
@@ -16,9 +8,7 @@ class Layout extends React.Component {
 
   componentDidMount = async () => {
 
-    this.props.listPosts(apiPath)
-
-
+    this.props.listPosts(this.props.apiPath)
 
   }
 
@@ -27,7 +17,7 @@ class Layout extends React.Component {
     return (
       <div>
         {
-          window.location.origin != '/' &&
+          window.location.pathname != '/' &&
           <a 
             className="back"
             href={window.location.origin}
@@ -35,7 +25,7 @@ class Layout extends React.Component {
         }
 
         <Markdown>
-          {homepage}
+          {this.props.children}
         </Markdown>
 
         <div className="sider">
@@ -66,8 +56,6 @@ class Layout extends React.Component {
 
         </div>
 
-
-
       </div>
 
     )
@@ -76,9 +64,10 @@ class Layout extends React.Component {
 
 export default connect(
   state => ({
-    posts:  state.posts,
-    status: state.status,
-    reason: state.reason
+    apiPath: state.apiPath,
+    posts:   state.posts,
+    status:  state.status,
+    reason:  state.reason
   }),
   {
     listPosts
