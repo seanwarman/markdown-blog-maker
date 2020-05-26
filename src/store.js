@@ -1,16 +1,18 @@
 import thunkMiddleware from 'redux-thunk'
 import { createStore, applyMiddleware } from 'redux'
-import { apiPath } from '../credentials.js'
+import { apiPath, s3Url } from './library/credentials.js'
 
 const initialState = {
   apiPath,
+  s3Url,
   posts: undefined,
   status: '',
   reason: '',
   errorResult: undefined,
+  pending: true,
 }
 
-function bucketRequest(state, action) {
+function enhancer(state, action) {
   if(typeof state === 'undefined') {
     return initialState
   }
@@ -19,21 +21,40 @@ function bucketRequest(state, action) {
 
     case 'REQUEST_BUCKET_CONTENTS':
       return Object.assign({}, state, {
-        status: 'Fetching posts...'
+        status: 'Fetching posts...',
+        pending: true,
       })
 
     case 'RECIEVE_BUCKET_CONTENTS':
       return Object.assign({}, state, {
         status: 'Success',
-        posts: action.posts
+        posts: action.posts,
+        pending: false,
       })
 
+    case 'REQUEST_MARKDOWN':
+      return Object.assign({}, state, {
+        status: 'Fetching markdown',
+        pending: true,
+      })
+
+    case 'SET_MARKDOWN':
+      return Object.assign({}, state, {
+        status:  'Success',
+        markdown: action.markdown,
+        pending: false,
+      })
+
+
+      // TODO extract some of these cases into a more general reducer
+      // this one will be used all over the place.
     case 'REQUEST_FAILED':
       return Object.assign({}, state, {
         status: 'Failed',
         reason: action.reason,
         errorResult: action.errorResult,
         posts: [],
+        pending: false,
       })
 
     default:
@@ -43,8 +64,9 @@ function bucketRequest(state, action) {
 
 }
 
+
 export default createStore(
-  bucketRequest,
+  enhancer,
   applyMiddleware(
     thunkMiddleware
   )
