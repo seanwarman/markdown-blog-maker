@@ -15,14 +15,14 @@ The webpage will pick up on any new folder/file in `posts` in it's s3 bucket.
 
 You can find my version the project hosted at:
 
-[stuffthatstough.com](https://stuffthatstough.com)
+[stuffthatstough.com](https://www.stuffthatstough.com)
 
 This project requires a file in `src/library/endpoints.js` that
 has the name of the s3Url and an apiPath for the S3 Bucket's API.
 
 ```js
 module.exports = {
-  apiPath: `http://www.stuffthatstough.com.s3.eu-west-2.amazonaws.com/?list-type=2`,
-  s3Url: 's3://www.stuffthatstough.com'
+  apiPath: `http://www.mybucket.com.s3.eu-west-2.amazonaws.com/?list-type=2`,
+  s3Url: 'https://s3.eu-west-2.amazonaws.com/www.mybucket.com'
 }
 ```

@@ -1,13 +1,8 @@
 export default `
 
-# Stuff That's Tough
-
 My name's Sean Warman and I've been a developer since 2018. 
 Here's some tips and tricks I've learned, mainly so I
 don't forget them myself.
-
-This project is a kind of learning process as I'm
-getting to know Webpack and AWS better.
 
 Each post is kept as a markdown file in a folder on my computer
 and then built using webpack and deployed automatically as I

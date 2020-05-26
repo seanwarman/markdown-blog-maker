@@ -26,13 +26,16 @@ class Layout extends React.Component {
       :
       <div>
         {
-          window.location.pathname != '/' &&
-          <Link 
-            className="back"
-            to="/"
-            onClick={() => this.props.setMarkdownToHome()}
-          >Home</Link>
+          window.location.pathname !== '/' ?
+            <Link 
+              className="back"
+              to="/"
+              onClick={() => this.props.setMarkdownToHome()}
+            >Home</Link>
+            :
+            <div className="banner"></div>
         }
+
 
         <Markdown>
           {this.props.children}

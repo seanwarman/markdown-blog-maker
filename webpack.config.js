@@ -22,6 +22,8 @@ module.exports = {
     }),
     new GoogleFontsPlugin({fonts: [
       { family: "Nunito" },
+      { family: "News Cycle" },
+      { family: "Fanwood Text" },
     ]}),
   ],
   module: {
