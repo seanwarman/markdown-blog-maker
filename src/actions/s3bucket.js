@@ -33,8 +33,6 @@ export function listPosts(path) {
     // Convert the string into an array using xml2js
     parseString(dataString, (err, res) => {
 
-      console.log('res.ListBucketResult.Contents: ', res.ListBucketResult.Contents)
-
       if(err) error = err 
       else posts = res.ListBucketResult.Contents
         .filter(obj => /posts/.test(obj.Key))

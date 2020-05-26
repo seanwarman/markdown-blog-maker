@@ -1,10 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
-import { listPosts } from '../../actions/bucketRequest.js'
+import { Link, withRouter } from 'react-router-dom'
+import { listPosts } from '../../actions/s3bucket.js'
+import { getMarkdown, setMarkdownToHome } from '../../actions/markdown.js'
 import axios from 'axios'
 
 import Markdown from './Markdown.js'
+import 'highlight.js/styles/atelier-estuary-dark.css';
+
 
 
 class Layout extends React.Component {
@@ -24,10 +27,11 @@ class Layout extends React.Component {
       <div>
         {
           window.location.pathname != '/' &&
-          <a 
+          <Link 
             className="back"
-            href={window.location.origin}
-          >Home</a>
+            to="/"
+            onClick={() => this.props.setMarkdownToHome()}
+          >Home</Link>
         }
 
         <Markdown>
@@ -48,9 +52,12 @@ class Layout extends React.Component {
                 {
                   this.props.posts[category].map((postsObj, i) => (
                     <li key={i}>
-                      <a href={window.location.origin + `/${category}/` + postsObj.uri}>
+                      <Link
+                        to={`/${category}/${postsObj.uri}`} 
+                        onClick={() => this.props.getMarkdown(this.props.s3Url, `/${category}/${postsObj.uri}`)}
+                      >
                         {postsObj.title}
-                      </a>
+                      </Link>
                     </li>
                   ))
                 }
@@ -81,6 +88,8 @@ export default withRouter(connect(
     }
   },
   {
-    listPosts
+    listPosts,
+    getMarkdown,
+    setMarkdownToHome
   }
 )(Layout))

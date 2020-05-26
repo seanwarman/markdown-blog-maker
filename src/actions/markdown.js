@@ -1,7 +1,8 @@
-export function getMarkdown(path) {
-  return async function(dispatch) {
+import axios from 'axios'
 
-    console.log('path: ', path)
+export function getMarkdown(s3Url, path) {
+
+  return async function(dispatch) {
 
     dispatch(requestMarkdown())
 
@@ -9,14 +10,23 @@ export function getMarkdown(path) {
     let result
 
     try {
-      result = await axios.get(path)
+      result = await axios.get(convertPathNameToS3Url(s3Url, path))
     } catch (err) {
       return dispatch(requestFailed('There was an error getting the posts', err))
     }
 
-    console.log('result: ', result)
+    return dispatch(setMarkdown(result.data))
 
+  }
+}
 
+function convertPathNameToS3Url(s3Url, path) {
+  return `${s3Url}/posts${path.replace(/\s/g, '+')}.md`
+}
+
+export function setMarkdownToHome() {
+  return {
+    type: 'SET_MARKDOWN_TO_HOME'
   }
 }
 

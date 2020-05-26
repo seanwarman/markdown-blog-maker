@@ -1,6 +1,8 @@
 import thunkMiddleware from 'redux-thunk'
 import { createStore, applyMiddleware } from 'redux'
+
 import { apiPath, s3Url } from './library/credentials.js'
+import homepage from './library/homepage.js'
 
 const initialState = {
   apiPath,
@@ -10,6 +12,7 @@ const initialState = {
   reason: '',
   errorResult: undefined,
   pending: true,
+  markdown: homepage,
 }
 
 function enhancer(state, action) {
@@ -36,6 +39,11 @@ function enhancer(state, action) {
       return Object.assign({}, state, {
         status: 'Fetching markdown',
         pending: true,
+      })
+
+    case 'SET_MARKDOWN_TO_HOME':
+      return Object.assign({}, state, {
+        markdown: homepage
       })
 
     case 'SET_MARKDOWN':

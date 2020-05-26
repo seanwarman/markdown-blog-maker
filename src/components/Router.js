@@ -1,26 +1,28 @@
 import React from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-
-import { getMarkdown } from '../actions/routing.js'
+import { getMarkdown, setMarkdownToHome } from '../actions/markdown.js'
 import Layout from './views/Layout.js'
-import homepage from '../library/homepage.js'
 
 class Router extends React.Component {
+
   componentDidMount() {
-    console.log('this.props: ', this.props)
-    this.props.getMarkdown(
-      `${this.props.s3Url}${this.props.location.pathname}`
-    )
+
+    if(this.props.location.pathname === '/') {
+
+      this.props.setMarkdownToHome()
+
+    } else {
+
+      this.props.getMarkdown(this.props.s3Url, this.props.location.pathname)
+
+    }
+
   }
-  render= () => (
 
-    this.props.location.pathname === '/' ?
-    <Layout>{homepage}</Layout>
-    :
-    <Layout>'# big header!'</Layout>
+  render = () => (
 
-
+    <Layout>{this.props.markdown}</Layout>
 
   )
 }
@@ -33,6 +35,7 @@ export default withRouter(connect(
     }
   },
   {
-    getMarkdown
+    getMarkdown,
+    setMarkdownToHome
   }
 )(Router))
