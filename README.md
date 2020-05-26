@@ -1,4 +1,4 @@
-# Seanblog
+# Markdown Blog Maker
 
 This is a webpage that acts like a CMS of sorts. When you build it with
 webpack it will carry over a `posts` directory that will then map all
@@ -7,24 +7,22 @@ it's contents onto the webpage as blog posts.
 Each folder in `posts` get's a title on the right-hand side of the page
 with it's contents listed as links to each post.
 
-All I have to do at this point is make a folder anywhere on my computer
-with the name `posts` then any markdown file I put in there will appear
-on the website when I upload the folder using `s3 sync`.
+All you have to do at this point is make a folder anywhere on your computer
+with the name `posts` then any markdown file you put in there will appear
+on the website when you upload the folder using `s3 sync`.
 
-The webpage will pick up on any new folder/file in `posts` in my s3 bucket.
+The webpage will pick up on any new folder/file in `posts` in it's s3 bucket.
 
-You can find the project hosted at:
+You can find my version the project hosted at:
 
-[Seanblog](http://seanblog.com.s3-website.eu-west-2.amazonaws.com/)
+[stuffthatstough.com](https://stuffthatstough.com)
 
-This project requires a credentials.js file in it's root that looks like:
+This project requires a file in `src/library/endpoints.js` that
+has the name of the s3Url and an apiPath for the S3 Bucket's API.
 
 ```js
 module.exports = {
   apiPath: `http://www.stuffthatstough.com.s3.eu-west-2.amazonaws.com/?list-type=2`,
-  publicPath: 'http://www.stuffthatstough.com.s3-website.eu-west-2.amazonaws.com',
-  url: 's3://www.stuffthatstough.com',
-  AWS_ACCESS_KEY_ID: 'AKRIENGDVNDI12344',
-  AWS_SECRET_ACCESS_KEY : 'FWfdndRuj-345n392+55j'
+  s3Url: 's3://www.stuffthatstough.com'
 }
 ```

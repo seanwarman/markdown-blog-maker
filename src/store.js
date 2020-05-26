@@ -1,7 +1,7 @@
 import thunkMiddleware from 'redux-thunk'
 import { createStore, applyMiddleware } from 'redux'
 
-import { apiPath, s3Url } from './library/credentials.js'
+import { apiPath, s3Url } from './library/endpoints.js'
 import homepage from './library/homepage.js'
 
 const initialState = {
