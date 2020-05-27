@@ -61,11 +61,6 @@ export function listPosts(path) {
     })
 
 
-    if(postsByCat.archive) {
-      postsByCat.archive.sort((a,b) => b.updated - a.updated)
-    }
- 
-
     return dispatch(recieveBucketContents(postsByCat))
 
   }

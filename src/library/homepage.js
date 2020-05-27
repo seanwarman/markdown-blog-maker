@@ -1,7 +1,7 @@
 export default `
 
 My name's Sean Warman and I've been a developer since 2018. 
-Here's some tips and tricks I've learned, mainly so I
+Here's some tips and tricks I've learned, partly so I
 don't forget them myself.
 
 Each post is kept as a markdown file in a folder on my computer

@@ -18,6 +18,36 @@ class Layout extends React.Component {
 
   }
 
+  sortPosts = (posts, category) => {
+
+    let sortBy = ''
+
+    // NOTE this only works because 'updated' is a Date object.
+    if(category === 'archive') {
+
+      sortBy = 'updated'
+      return posts[category].sort((a,b) => b[sortBy] - a[sortBy])
+
+    }
+
+    return posts[category]
+
+  }
+
+
+  renderPostLinksByCategory = (posts, category) => {
+    return this.sortPosts(posts, category).map((postsObj, i) => (
+      <li key={i}>
+        <Link
+          to={`/${category}/${postsObj.uri}`} 
+          onClick={() => this.props.getMarkdown(this.props.s3Url, `/${category}/${postsObj.uri}`)}
+        >
+          {postsObj.title}
+        </Link>
+      </li>
+    ))
+  }
+
   render = () => {
 
     return (
@@ -55,16 +85,7 @@ class Layout extends React.Component {
                       </h3>
 
                       {
-                        this.props.posts[category].map((postsObj, i) => (
-                          <li key={i}>
-                            <Link
-                              to={`/${category}/${postsObj.uri}`} 
-                              onClick={() => this.props.getMarkdown(this.props.s3Url, `/${category}/${postsObj.uri}`)}
-                            >
-                              {postsObj.title}
-                            </Link>
-                          </li>
-                        ))
+                        this.renderPostLinksByCategory(this.props.posts, category)
                       }
 
                     </ul>
