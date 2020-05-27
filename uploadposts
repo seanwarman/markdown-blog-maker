@@ -7,13 +7,13 @@
 // and a posts/ directory in it. Then you can run this script
 // whenever you're cdied in there.
 
-const { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, s3Url } = require(process.env.PWD + '/credentials.js')
+const { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, S3_URL } = require(process.env.PWD + '/credentials.js')
 const { exec } = require('child_process')
 
 if(!AWS_SECRET_ACCESS_KEY || !AWS_ACCESS_KEY_ID) {
   console.log('No AWS config included. Add a file called credentials.js to this folder to upload.')
 } else {
-  exec(`export AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}"; export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}"; aws s3 sync ${process.env.PWD}/posts ${s3Url} --acl public-read`, (e, stdout, stderr) => {
+  exec(`export AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}"; export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}"; aws s3 sync ${process.env.PWD}/posts ${S3_URL} --acl public-read`, (e, stdout, stderr) => {
     if(e) {
       console.log('There was an error syncing with the s3')
       console.log(stderr)
