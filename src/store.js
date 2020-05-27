@@ -3,6 +3,7 @@ import { createStore, applyMiddleware } from 'redux'
 
 import { apiPath, s3Url } from './library/endpoints.js'
 import homepage from './library/homepage.js'
+import errorpage from './library/errorpage.js'
 
 const initialState = {
   apiPath,
@@ -11,7 +12,7 @@ const initialState = {
   status: '',
   reason: '',
   errorResult: undefined,
-  pending: true,
+  loading: true,
   markdown: homepage,
 }
 
@@ -25,32 +26,33 @@ function enhancer(state, action) {
     case 'REQUEST_BUCKET_CONTENTS':
       return Object.assign({}, state, {
         status: 'Fetching posts...',
-        pending: true,
+        loading: true,
       })
 
     case 'RECIEVE_BUCKET_CONTENTS':
       return Object.assign({}, state, {
         status: 'Success',
         posts: action.posts,
-        pending: false,
+        loading: false,
       })
 
     case 'REQUEST_MARKDOWN':
       return Object.assign({}, state, {
         status: 'Fetching markdown',
-        pending: true,
+        loading: true,
       })
 
     case 'SET_MARKDOWN_TO_HOME':
       return Object.assign({}, state, {
-        markdown: homepage
+        markdown: homepage,
+        loading: false,
       })
 
     case 'SET_MARKDOWN':
       return Object.assign({}, state, {
         status:  'Success',
         markdown: action.markdown,
-        pending: false,
+        loading: false,
       })
 
 
@@ -62,7 +64,8 @@ function enhancer(state, action) {
         reason: action.reason,
         errorResult: action.errorResult,
         posts: [],
-        pending: false,
+        loading: false,
+        markdown: errorpage,
       })
 
     default:

@@ -12,7 +12,7 @@ export function getMarkdown(s3Url, path) {
     try {
       result = await axios.get(convertPathNameToS3Url(s3Url, path))
     } catch (err) {
-      return dispatch(requestFailed('There was an error getting the posts', err))
+      return dispatch(requestFailed('No post', err))
     }
 
     return dispatch(setMarkdown(result.data))

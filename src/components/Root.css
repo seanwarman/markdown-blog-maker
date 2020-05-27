@@ -16,6 +16,10 @@ h1, h2, h3, h4, h5, h6  {
   font-weight: 500;
 }
 
+h1:first-child {
+  margin: 93px 0;
+}
+
 body > div {
   max-width: 750px;
   margin: 0 370px 0 0;

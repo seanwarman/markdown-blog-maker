@@ -20,7 +20,7 @@ export function listPosts(path) {
 
 
 
-    // TODO: this shouild be split out into a reducer type like bucketPosts.js 
+    // TODO: this shouild be split out into a reducer 'type' like bucketPosts.js 
     // or something.
 
     let dataString = ''

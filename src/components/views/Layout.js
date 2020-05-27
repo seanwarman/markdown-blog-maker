@@ -21,9 +21,6 @@ class Layout extends React.Component {
   render = () => {
 
     return (
-      typeof this.props.posts !== 'object' ?
-      <h1 id="loading-text">loading...</h1>
-      :
       <div>
         {
           window.location.pathname !== '/' ?
@@ -36,42 +33,48 @@ class Layout extends React.Component {
             <div className="banner"></div>
         }
 
+        {
+          this.props.loading ||
+          <Markdown>
+            {this.props.children}
+          </Markdown>
+        }
 
-        <Markdown>
-          {this.props.children}
-        </Markdown>
 
-        <div className="sider">
+
           {
-            typeof this.props.posts === 'object' &&
+            <div className="sider">
+              { 
+                typeof this.props.posts === 'object' && this.props.status !== 'Failed' &&
 
-              Object.keys(this.props.posts).map(category => (
+                  Object.keys(this.props.posts).map(category => (
 
-              <ul key={category}>
-                <h3>
-                  {category.slice(0,1).toUpperCase() + category.slice(1, category.length)}
-                </h3>
+                    <ul key={category}>
+                      <h3>
+                        {category.slice(0,1).toUpperCase() + category.slice(1, category.length)}
+                      </h3>
 
-                {
-                  this.props.posts[category].map((postsObj, i) => (
-                    <li key={i}>
-                      <Link
-                        to={`/${category}/${postsObj.uri}`} 
-                        onClick={() => this.props.getMarkdown(this.props.s3Url, `/${category}/${postsObj.uri}`)}
-                      >
-                        {postsObj.title}
-                      </Link>
-                    </li>
+                      {
+                        this.props.posts[category].map((postsObj, i) => (
+                          <li key={i}>
+                            <Link
+                              to={`/${category}/${postsObj.uri}`} 
+                              onClick={() => this.props.getMarkdown(this.props.s3Url, `/${category}/${postsObj.uri}`)}
+                            >
+                              {postsObj.title}
+                            </Link>
+                          </li>
+                        ))
+                      }
+
+                    </ul>
+
                   ))
-                }
 
-              </ul>
-
-
-              ))
+              }
+            </div>
           }
 
-        </div>
 
       </div>
 
@@ -87,12 +90,13 @@ export default withRouter(connect(
       apiPath: state.apiPath,
       posts:   state.posts,
       status:  state.status,
-      reason:  state.reason
+      reason:  state.reason,
+      loading: state.loading,
     }
   },
   {
     listPosts,
     getMarkdown,
-    setMarkdownToHome
+    setMarkdownToHome,
   }
 )(Layout))
