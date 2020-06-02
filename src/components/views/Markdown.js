@@ -9,6 +9,7 @@ export default function Markdown({ children: md }) {
     __html: marked(markdown, {
       renderer: new marked.Renderer(),
       highlight: function(code, language) {
+        console.log('language: ', language)
         const validLang = hljs.getLanguage(language) ? language : 'plaintext'
         return hljs.highlight(validLang, code).value
       }

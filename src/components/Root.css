@@ -61,7 +61,7 @@ pre > code {
   font-size: 1em;
 }
 
-code {
+p > code {
   background: #2b2b2b;
   padding: .1em .4em;
   border-radius: 4px;

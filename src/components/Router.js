@@ -22,7 +22,7 @@ class Router extends React.Component {
 
   render = () => (
 
-    <Layout>{this.props.markdown}</Layout>
+    <Layout></Layout>
 
   )
 }
@@ -30,7 +30,6 @@ class Router extends React.Component {
 export default withRouter(connect(
   state => {
     return {
-      markdown: state.markdown,
       s3Url:    state.s3Url
     }
   },

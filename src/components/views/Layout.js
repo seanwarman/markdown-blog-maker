@@ -66,7 +66,7 @@ class Layout extends React.Component {
         {
           this.props.loading ||
           <Markdown>
-            {this.props.children}
+            {this.props.markdown}
           </Markdown>
         }
 
@@ -113,6 +113,7 @@ export default withRouter(connect(
       status:  state.status,
       reason:  state.reason,
       loading: state.loading,
+      markdown:state.markdown,
     }
   },
   {
