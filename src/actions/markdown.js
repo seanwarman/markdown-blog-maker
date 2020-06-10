@@ -15,6 +15,9 @@ export function getMarkdown(s3Url, path) {
       return dispatch(requestFailed('No post', err))
     }
 
+
+    window.scrollTo({top: 0})
+
     return dispatch(setMarkdown(result.data))
 
   }

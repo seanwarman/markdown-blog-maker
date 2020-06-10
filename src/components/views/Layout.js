@@ -18,6 +18,10 @@ class Layout extends React.Component {
 
   }
 
+  handleLink = (category, uri) => {
+    this.props.getMarkdown(this.props.s3Url, `/${category}/${uri}`)
+  }
+
   sortPosts = (posts, category) => {
 
     let sortBy = ''
@@ -40,7 +44,7 @@ class Layout extends React.Component {
       <li key={i}>
         <Link
           to={`/${category}/${postsObj.uri}`} 
-          onClick={() => this.props.getMarkdown(this.props.s3Url, `/${category}/${postsObj.uri}`)}
+          onClick={() => this.handleLink(category, postsObj.uri)}
         >
           {postsObj.title}
         </Link>

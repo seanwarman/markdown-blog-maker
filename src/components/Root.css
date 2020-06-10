@@ -1,4 +1,10 @@
+* {
+  box-sizing: border-box;
+}
+
 html, body {
+  width: 100%;
+  margin: 0;
   display: relative;
   font-family: 'Nunito', serif;
   /* font-family: 'Fanwood Text', serif; */
@@ -9,6 +15,10 @@ html, body {
   font-size: 1.1rem;
   background: #ece9de;
   padding-bottom: 90px;
+}
+
+#root {
+  width: 100%;
 }
 
 h1, h2, h3, h4, h5, h6  {
@@ -23,16 +33,6 @@ h1:first-child {
 body > div {
   max-width: 750px;
   margin: 0 370px 0 0;
-}
-
-@media(max-width: 1300px) {
-  body > div {
-    /* max-width: 560px; */
-    font-size: 1.1em;
-  }
-  a {
-    font-size: 1.5em;
-  }
 }
 
 pre {
@@ -101,29 +101,61 @@ th , td {
   right: 50px;
   top: 16px;
 }
+
 .back {
   left: 40px;
   top: 40px;
 }
+
+@media(max-width: 1300px) {
+  body > div {
+    /* max-width: 560px; */
+    font-size: 1.1em;
+  }
+}
+
 @media (min-width: 1701px) {
   .sider {
     position: absolute;
   }
+
   .back {
     position: absolute;
   }
 }
+
 @media (max-width: 1700px) {
+  h1 {
+    font-size: 1.7em;
+  }
+
+  h1:first-child {
+    margin: 63px 0;
+  }
+
+  #root {
+    padding: 50px;
+  }
+
   .sider {
     font-size: 1.4em;
   }
+
   .sider li {
     margin: 1em 0;
   }
+
   .sider ul {
     margin-top: 3em;
   }
+
   body > div {
     margin: 0px 50px;
+  }
+
+  .banner {
+    max-width: 326px;
+    margin: 63px auto;
+    height: 132px;
   }
 }
