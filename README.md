@@ -1,17 +1,17 @@
 # Markdown Blog Maker
 
 This is a webpage that acts like a CMS of sorts. When you build it with
-webpack it will carry over a `posts` directory that will then map all
+webpack it will carry over a `bucket/posts` directory that will then map all
 it's contents onto the webpage as blog posts.
 
-Each folder in `posts` get's a title on the right-hand side of the page
+Each folder in `bucket/posts` get's a title on the right-hand side of the page
 with it's contents listed as links to each post.
 
 All you have to do at this point is make a folder anywhere on your computer
-with the name `posts` then any markdown file you put in there will appear
+with the name `bucket/posts` then any markdown file you put in there will appear
 on the website when you upload the folder using `s3 sync`.
 
-The webpage will pick up on any new folder/file in `posts` in it's s3 bucket.
+The webpage will pick up on any new folder/file in `bucket/posts` in it's s3 bucket.
 
 You can find my version of the project hosted at:
 
@@ -81,8 +81,39 @@ access origin xml in the CORS configuration...
 
 ## Uploading
 
-Once you've made a `posts/` directory, make a file
-called `credentials.js` with your AWS Credentials and
+Make a directory for your blog with a `bucket` and a `posts` directory.
+
+```bash
+mkdir my-blog/bucket/posts
+```
+
+Any file inside `posts` will be uploaded to the blog with a listed 
+heading named after the folder it's in. For example to make a list of posts
+called Archive:
+
+### Archive
+
+- 2020-02-01
+- 2020-01-01
+- 2019-12-31
+
+The posts folder would look like:
+
+```
+my-blog
+  \
+   bucket
+    \
+     posts
+      \
+       archive
+        \
+         2020-02-01.md
+         2020-01-01.md
+         2019-12-31.md
+```
+
+Put a file into `my-blog` called `credentials.js` with your AWS Credentials and
 the S3 url of your bucket.
 
 ```js
@@ -93,8 +124,8 @@ module.exports = {
 }
 ```
 
-Copy `uploadposts` from the root of this project into
-`posts/` then run it from your terminal:
+Copy `uploadblog` from the root of this project into
+`my-bucket` then run it from your terminal:
 
 ```posix
 ./uploadposts
@@ -107,3 +138,15 @@ to run `uploadposts`, do this to make it an executable file:
 chmod +x uploadposts
 ```
 
+## Pictures
+
+Add a new dir to the bucket called pictures `my-blog/bucket/pictures`.
+Now you can add any picture to that folder and access it from your
+blog post.
+
+To get to a picture from the post add it's relative path into the 
+markdown.
+
+```md
+![Avatar](../../pictures/avatar.png)
+```
