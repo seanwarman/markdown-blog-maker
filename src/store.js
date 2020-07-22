@@ -63,7 +63,7 @@ function enhancer(state, action) {
         status: 'Failed',
         reason: action.reason,
         errorResult: action.errorResult,
-        posts: [],
+        posts: state.posts,
         loading: false,
         markdown: errorpage,
       })

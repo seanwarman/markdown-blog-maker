@@ -10,7 +10,7 @@ const Root = ({ store }) => (
   <Provider store={store}>
     <BrowserRouter>
 
-      <Route path="/:path?">
+      <Route path="/:path?/:title?">
         <Router />
       </Route>
 

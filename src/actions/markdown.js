@@ -24,7 +24,7 @@ export function getMarkdown(s3Url, path) {
 }
 
 function convertPathNameToS3Url(s3Url, path) {
-  return `${s3Url}/posts${path.replace(/\s/g, '+')}.md`
+  return `${s3Url}/posts${path}.md`
 }
 
 export function setMarkdownToHome() {

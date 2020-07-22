@@ -1,36 +1,56 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getMarkdown, setMarkdownToHome } from '../actions/markdown.js'
 import Layout from './views/Layout.js'
+import { Helmet } from 'react-helmet'
 
-class Router extends React.Component {
+const description = `
+My name's Sean Warman and I've been a developer since 2018.
+Here's some tips and tricks I've learned, partly so I
+don't forget them myself.
+`
 
-  componentDidMount() {
+function Router({
+  s3Url,
+  getMarkdown,
+  setMarkdownToHome,
+  location,
+  match
+}) {
 
-    if(this.props.location.pathname === '/') {
+  useEffect(() => {
 
-      this.props.setMarkdownToHome()
+    if(location.pathname === '/') {
+
+      setMarkdownToHome()
 
     } else {
 
-      this.props.getMarkdown(this.props.s3Url, this.props.location.pathname)
+      getMarkdown(s3Url, location.pathname)
 
     }
 
-  }
+  }, [location])
 
-  render = () => (
 
-    <Layout></Layout>
+  const { title = 'Stuff That\'s Tough' } = match.params
 
-  )
+
+  return <>
+    <Helmet>
+      <title>{title}</title>
+      <meta name="description" content={description.replace(/\n/g, ' ')} />
+    </Helmet>
+
+    <Layout />
+  </>
 }
 
 export default withRouter(connect(
   state => {
     return {
-      s3Url:    state.s3Url
+      s3Url: state.s3Url
     }
   },
   {
