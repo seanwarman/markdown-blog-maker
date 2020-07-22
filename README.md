@@ -79,9 +79,33 @@ access origin xml in the CORS configuration...
 }
 ```
 
-## Uploading
+## Deployment
 
-Make a directory for your blog with a `bucket` and a `posts` directory.
+Add a *credentials.js* file to the root of this project that looks like:
+
+```
+module.exports = {
+  Bucket: 'my-bucket-name',
+  s3Url: 's3://my-bucket-name',
+  AWS_ACCESS_KEY_ID: 'my-aws-secret-key-id',
+  AWS_SECRET_ACCESS_KEY : 'my-aws-secret-access-key'
+}
+```
+
+Then run:
+
+```
+npm run build
+```
+
+That'll build and upload the whole project to your s3 bucket.
+
+
+
+## Uploading Blog Posts
+
+Make a directory for your blog with a `bucket` and a `posts` directory anywhere on
+your computer.
 
 ```bash
 mkdir my-blog/bucket/posts

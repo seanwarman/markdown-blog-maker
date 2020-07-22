@@ -1,6 +1,10 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const GoogleFontsPlugin = require("@beyonk/google-fonts-webpack-plugin")
+const CompressionPlugin = require('compression-webpack-plugin')
+const S3Plugin = require('webpack-s3-plugin')
+
+const { Bucket, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } = require('./credentials')
 
 module.exports = {
   mode: 'development',
@@ -26,6 +30,39 @@ module.exports = {
       { family: "News Cycle" },
       { family: "Fanwood Text" },
     ]}),
+
+    new CompressionPlugin({
+      test: /\.(js|css)$/i,
+      filename: '[dir]/[name][ext]',
+      algorithm: 'gzip',
+      deleteOriginalAssets: true
+    }),
+
+    new S3Plugin({
+      s3Options: {
+        accessKeyId: AWS_ACCESS_KEY_ID,
+        secretAccessKey: AWS_SECRET_ACCESS_KEY,
+        region: 'eu-west-1'
+      },
+      s3UploadOptions: {
+        Bucket,
+        ContentEncoding(fileName) {
+          if(/\.(js|css)$/i.test(fileName)) {
+            return 'gzip'
+          }
+        },
+        ContentType(fileName) {
+          if(/\.css/.test(fileName)) {
+            return 'text/css'
+          }
+          if(/\.js/.test(fileName)) {
+            return 'text/javascript'
+          }
+        }
+      },
+      directory: 'dist'
+    })
+
   ],
   module: {
     rules: [
