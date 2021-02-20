@@ -1,6 +1,5 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-// const GoogleFontsPlugin = require("@beyonk/google-fonts-webpack-plugin")
 const CompressionPlugin = require('compression-webpack-plugin')
 const S3Plugin = require('webpack-s3-plugin')
 
@@ -8,13 +7,10 @@ const { Bucket, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } = require('./credenti
 
 module.exports = {
   mode: 'development',
-  entry: [
-    'babel-polyfill',
-    './src/index.js', // default in wp 5
-  ],
+  entry: [ 'babel-polyfill', './src/index.js' ],
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'), // default in wp 5
+    path: path.resolve(__dirname, 'dist'),
     publicPath: '/'
   },
   devServer: {
@@ -28,18 +24,6 @@ module.exports = {
       template: './public/index.html',
       favicon: './public/favicon.ico'
     }),
-    // new GoogleFontsPlugin({fonts: [
-    //   { family: "Nunito" },
-    //   { family: "News Cycle" },
-    //   { family: "Fanwood Text" },
-    // ]}),
-
-//     new CompressionPlugin({
-//       test: /\.(js|css)$/i,
-//       filename: '[dir]/[name][ext]',
-//       algorithm: 'gzip',
-//       deleteOriginalAssets: true
-//     }),
 
     new S3Plugin({
       s3Options: {
@@ -49,11 +33,6 @@ module.exports = {
       },
       s3UploadOptions: {
         Bucket,
-        // ContentEncoding(fileName) {
-        //   if(/\.(js|css)$/i.test(fileName)) {
-        //     return 'gzip'
-        //   }
-        // },
         ContentType(fileName) {
           if(/\.css/.test(fileName)) {
             return 'text/css'
@@ -69,10 +48,6 @@ module.exports = {
   ],
   module: {
     rules: [
-      {
-        test: /\.ttf$/i,
-        type: 'asset/resource',
-      },
       {test: /\.(js)$/,  use:'babel-loader'},
       {test: /\.css$/,   use:[ 'style-loader', 'css-loader', ]},
       {
@@ -81,7 +56,7 @@ module.exports = {
         options: { 
           name: '[name].[ext]'
         },
-      },
+      }
     ]
   }
 }
