@@ -17,6 +17,26 @@ You can find my version of the project hosted at:
 
 [stuffthatstough.com](https://www.stuffthatstough.com)
 
+## Dev Environment and Scripts
+
+To build the project into the *dist/* dir with webpack:
+
+```sh
+npm run build
+```
+
+To run dev environment on localhost:3000 (doesn't build anything into *dist/*):
+
+```sh
+npm start
+```
+
+To deploy to aws:
+
+```sh
+npm run deploy
+```
+
 ## How To
 
 It shouldn't take too much coding to have this project re-purposed for
