@@ -22,7 +22,6 @@
   "scripts": {
     "start": "webpack-dev-server --host 0.0.0.0",
     "build": "webpack",
-    "deploypure": "aws s3 rm s3://www.stuffthatstough.com --recursive; aws s3 sync ./dist s3://www.stuffthatstough.com --acl public-read",
     "deploy": "aws s3 sync ./dist s3://www.stuffthatstough.com --acl public-read"
   },
   "keywords": [],
