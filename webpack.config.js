@@ -25,18 +25,18 @@ module.exports = {
       template: './public/index.html',
       favicon: './public/favicon.ico'
     }),
-    new GoogleFontsPlugin({fonts: [
-      { family: "Nunito" },
-      { family: "News Cycle" },
-      { family: "Fanwood Text" },
-    ]}),
+    // new GoogleFontsPlugin({fonts: [
+    //   { family: "Nunito" },
+    //   { family: "News Cycle" },
+    //   { family: "Fanwood Text" },
+    // ]}),
 
-    new CompressionPlugin({
-      test: /\.(js|css)$/i,
-      filename: '[dir]/[name][ext]',
-      algorithm: 'gzip',
-      deleteOriginalAssets: true
-    }),
+//     new CompressionPlugin({
+//       test: /\.(js|css)$/i,
+//       filename: '[dir]/[name][ext]',
+//       algorithm: 'gzip',
+//       deleteOriginalAssets: true
+//     }),
 
     new S3Plugin({
       s3Options: {
@@ -46,11 +46,11 @@ module.exports = {
       },
       s3UploadOptions: {
         Bucket,
-        ContentEncoding(fileName) {
-          if(/\.(js|css)$/i.test(fileName)) {
-            return 'gzip'
-          }
-        },
+        // ContentEncoding(fileName) {
+        //   if(/\.(js|css)$/i.test(fileName)) {
+        //     return 'gzip'
+        //   }
+        // },
         ContentType(fileName) {
           if(/\.css/.test(fileName)) {
             return 'text/css'
