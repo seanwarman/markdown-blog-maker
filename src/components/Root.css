@@ -1,12 +1,5 @@
-@font-face {
-  font-family: 'Nunito';
-  src: url('../fonts/Nunito-Regular.ttf') format('ttf');
-}
-
-@font-face {
-  font-family: 'News Cycle';
-  src: url('../fonts/NewsCycle-Regular.ttf') format('ttf');
-}
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=News+Cycle&family=Nunito&display=swap');
 
 * {
   box-sizing: border-box;
