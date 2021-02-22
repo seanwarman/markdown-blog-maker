@@ -1,4 +1,4 @@
 module.exports = {
-  apiPath: 'https://www.homebox.com.s3.amazonaws.com/',
-  s3Url: 'http://www.homebox.com.s3-website.eu-west-2.amazonaws.com/'
+  apiPath: 'https://d206787hfvh0pw.cloudfront.net/',
+  s3Url: 'https://s3.eu-west-2.amazonaws.com/www.stuffthatstough.com'
 }
