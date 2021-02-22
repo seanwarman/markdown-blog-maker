@@ -19,19 +19,19 @@ You can find my version of the project hosted at:
 
 ## Dev Environment and Scripts
 
-To build the project into the *dist/* dir with webpack:
-
-```sh
-npm run build
-```
-
 To run dev environment on localhost:3000 (doesn't build anything into *dist/*):
 
 ```sh
 npm start
 ```
 
-To deploy to aws:
+To build the project into the *dist/* dir with webpack:
+
+```sh
+npm run build
+```
+
+Deploy that build to AWS (to deploy you have to make a build first):
 
 ```sh
 npm run deploy
