@@ -47,28 +47,43 @@ your own banner image to the class `.banner`.
 
 Then add a favicon file to `public/favicon.ico`.
 
-Add a file in `src/library/endpoints.js` that
-has the name of the s3Url and an apiPath for the S3 Bucket's API.
+You'll also need to update `src/library/endpoints.js` with the s3 public
+address and also it's xml endpoint. So for example if my bucket is called
+`www.mybucket.com` the endpoints will look like:
 
 ```js
 module.exports = {
-  apiPath: 'https://d206587hfph0mw.cloudfront.net/',
-  s3Url:   'https://s3.eu-west-2.amazonaws.com/www.mybucket.com'
+  apiPath: 'https://www.mybucket.com.s3.amazonaws.com/',
+  s3Url: 'http://www.mybucket.com.s3-website.eu-west-2.amazonaws.com/',
 }
 ```
 
-The S3 Bucket configuration needs to be set to public with the following
-access origin xml in the CORS configuration...
+**Note** these are the "raw" s3 endpoints which you'll probably want to
+re-assign at some point using CloudFront.
 
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<CORSConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/">
-<CORSRule>
-    <AllowedOrigin>*</AllowedOrigin>
-    <AllowedMethod>GET</AllowedMethod>
-    <AllowedHeader>*</AllowedHeader>
-</CORSRule>
-</CORSConfiguration>
+The `s3Url` will be listed in the bucket properties section where you
+gave the bucket public access. The `apiPath` should be the bucket name
+with `s3.amazonaws.com/` appended on the end.
+
+The S3 Bucket configuration needs to be set to public with the following
+access origin json in the CORS configuration...
+
+```json
+[
+    {
+        "AllowedHeaders": [
+            "*"
+        ],
+        "AllowedMethods": [
+            "GET",
+            "HEAD"
+        ],
+        "AllowedOrigins": [
+            "*"
+        ],
+        "ExposeHeaders": []
+    }
+]
 ```
 
 ...and the Bucket Policy json should look like...
@@ -101,26 +116,22 @@ access origin xml in the CORS configuration...
 
 ## Deployment
 
+Make a bucket with a `www.` and `.com`, this allows you to use the bucket
+as a webpage. Make the access public in te bucket's properties in the AWS
+Console under Properties -> Static Website Hosting. Also set the index
+document to `index.html` and set the optional error page to the same
+file.
+
 Add a *credentials.js* file to the root of this project that looks like:
 
 ```
 module.exports = {
-  Bucket: 'my-bucket-name',
-  s3Url: 's3://my-bucket-name',
+  Bucket: 'www.mybucket.com',
+  s3Url: 's3://www.mybucket.com',
   AWS_ACCESS_KEY_ID: 'my-aws-secret-key-id',
   AWS_SECRET_ACCESS_KEY : 'my-aws-secret-access-key'
 }
 ```
-
-Then run:
-
-```
-npm run build
-```
-
-That'll build and upload the whole project to your s3 bucket.
-
-
 
 ## Uploading Blog Posts
 
@@ -164,7 +175,7 @@ the S3 url of your bucket.
 module.exports = {
   AWS_ACCESS_KEY_ID: '123456789', 
   AWS_SECRET_ACCESS_KEY: '12456789', 
-  S3_URL: 's3://mybucket'
+  S3_URL: 's3://www.mybucket.com'
 }
 ```
 
