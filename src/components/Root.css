@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant&family=Lusitana&family=Suez+One&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  width: 100%;
+  margin: 0;
+  display: relative;
+  font-family: 'Lusitana', serif;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 1.1rem;
+  background: #0d9e86;
+  padding-bottom: 90px;
+}
+
+#root {
+  width: 100%;
+}
+
+#layout {
+  position: relative;
+}
+
+h1 {
+  font-family: 'Cormorant', serif;
+  font-size: 4rem;
+}
+
+h2, h3, h4, h5, h6  {
+  font-family: 'Suez One', serif;
+}
+
+h1:first-child {
+  margin: 93px 0;
+}
+
+body > div {
+  max-width: 750px;
+  margin: 0 370px 0 0;
+}
+
+pre {
+  overflow-x: scroll;
+  background: #2b2b2b;
+  padding: 0.6rem;
+  border-radius: 5px;
+  color: #e6d1a1;
+  transition: all .3s;
+}
+
+pre::-webkit-scrollbar {
+  height: 6px;
+}
+
+pre::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background-color: #5b5b5b;
+}
+
+pre::-webkit-scrollbar-thumb-hover {
+  background-color: #bbbbbb;
+}
+
+pre > code {
+  font-size: 1em;
+}
+
+p > code {
+  background: #d9d9d9;
+  padding: .1em .4em;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+a {
+  color: #fce1d5;
+}
+
+img {
+  width: 100%;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th , td {
+  padding: 10px;
+  text-align: start;
+  border: 1px solid;
+  font-size: .8em;
+}
+
+.banner {
+  background: url(../pictures/vector/default.svg);
+  background-repeat: no-repeat;
+  margin: -50px -50px 50px -50px;
+  position: relative;
+  left: 0;
+  right: 0;
+  height: 336px;
+  background-size: cover;
+  background-position-y: center;
+}
+
+#loading-text {
+  height: 70vh;
+  display: flex;
+  align-items: center;
+}
+
+.sider {
+  right: 50px;
+  top: 16px;
+}
+
+.back {
+  left: 40px;
+  top: 40px;
+}
+
+@media(max-width: 1300px) {
+  body > div {
+    /* max-width: 560px; */
+    font-size: 1.1em;
+  }
+}
+
+@media (min-width: 1701px) {
+  .sider {
+    position: absolute;
+  }
+
+  .back {
+    position: absolute;
+  }
+}
+
+@media (max-width: 1700px) {
+  h1 {
+    /* font-size: 1.7em; */
+  }
+
+  h1:first-child {
+    margin: 63px 0;
+  }
+
+  #root {
+    padding: 50px;
+  }
+
+  .sider {
+    /* font-size: 1.4em; */
+  }
+
+  .sider li {
+    margin: 1em 0;
+  }
+
+  .sider ul {
+    margin-top: 3em;
+  }
+
+  body > div {
+    margin: 0px 50px;
+  }
+}
