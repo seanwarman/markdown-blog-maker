@@ -153,6 +153,19 @@ link under it's title.
 The dev project will look to the hosted bucket for it's content so anything
 already in there will show on your local version, not ideal but there you go.
 
+## Pictures
+
+Add a new dir to the bucket called pictures.
+Now you can add any picture to that folder and access it from your
+blog post.
+
+To get to a picture from the post add it's relative path into the 
+markdown.
+
+```md
+![Avatar](../../pictures/avatar.png)
+```
+
 # Deprecated Functionality (To Be Fixed)
 
 ## Uploading Blog Posts
@@ -213,17 +226,4 @@ to run `uploadposts`, do this to make it an executable file:
 
 ```posix
 chmod +x uploadposts
-```
-
-## Pictures
-
-Add a new dir to the bucket called pictures `my-blog/bucket/pictures`.
-Now you can add any picture to that folder and access it from your
-blog post.
-
-To get to a picture from the post add it's relative path into the 
-markdown.
-
-```md
-![Avatar](../../pictures/avatar.png)
 ```
