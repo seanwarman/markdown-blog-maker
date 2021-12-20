@@ -153,25 +153,20 @@ link under it's title.
 The dev project will look to the hosted bucket for it's content so anything
 already in there will show on your local version, not ideal but there you go.
 
-## Pictures
-
-Add a new dir to the bucket called pictures.
-Now you can add any picture to that folder and access it from your
-blog post.
-
-To get to a picture from the post add it's relative path into the 
-markdown.
-
-```md
-![Avatar](../../pictures/avatar.png)
-```
-
-# Deprecated Functionality (To Be Fixed)
-
 ## Uploading Blog Posts
 
-Make a directory for your blog with a `bucket` and a `posts` directory anywhere on
-your computer.
+Install `awscli`. 
+
+for MacOS you can use `brew`:
+
+```posix
+brew install awscli
+```
+
+For other distros see [the AWS instructions](https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html)
+
+Once that's installed, make a directory for your blog with a `bucket` and a
+`posts` directory anywhere on your computer.
 
 ```bash
 mkdir my-blog/bucket/posts
@@ -210,7 +205,7 @@ the S3 url of your bucket.
 module.exports = {
   AWS_ACCESS_KEY_ID: '123456789', 
   AWS_SECRET_ACCESS_KEY: '12456789', 
-  S3_URL: 's3://www.mybucket.com'
+  BUCKET: 'www.stuffthatstough.com'
 }
 ```
 
@@ -218,12 +213,25 @@ Copy `uploadblog` from the root of this project into
 `my-bucket` then run it from your terminal:
 
 ```posix
-./uploadposts
+./uploadblog
 ```
 
 **Note**: if you get a 'Permission denied' error after trying
-to run `uploadposts`, do this to make it an executable file:
+to run `uploadblog`, do this to make it an executable file:
 
 ```posix
-chmod +x uploadposts
+chmod +x uploadblog
+```
+
+## Pictures
+
+Add a new dir to the bucket called pictures.
+Now you can add any picture to that folder and access it from your
+blog post.
+
+To get to a picture from the post add it's relative path into the 
+markdown.
+
+```md
+![Avatar](../../pictures/avatar.png)
 ```

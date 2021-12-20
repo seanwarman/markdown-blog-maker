@@ -1,22 +1,21 @@
 #!/usr/bin/env node
 
-// TODO this needs changing since I've put the variables in .env
-const { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, s3Url } = require(process.env.PWD + '/credentials.js')
+const { AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, BUCKET } = require(process.env.PWD + '/credentials.js')
 const { exec } = require('child_process')
 
 if(!AWS_SECRET_ACCESS_KEY || !AWS_ACCESS_KEY_ID) {
   console.log('No AWS config included. Add a file called credentials.js to this folder to upload.')
 } else {
-  exec(`export AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}"; export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}"; aws s3 sync ${process.env.PWD}/bucket ${s3Url} --acl public-read`, (e, stdout, stderr) => {
+
+  exec(`export AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}"; export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}"; aws s3 sync ${process.env.PWD}/bucket s3://${BUCKET}`, (e, stdout, stderr) => {
     if(e) {
       console.log('There was an error syncing with the s3')
       console.log(stderr)
       return
     }
-
     console.log(stdout)
     console.log('Done!')
-
   })
+
 }
 
