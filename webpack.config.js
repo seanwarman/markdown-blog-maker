@@ -25,26 +25,26 @@ module.exports = {
       favicon: './public/favicon.ico'
     }),
 
-    new S3Plugin({
-      s3Options: {
-        accessKeyId: AWS_ACCESS_KEY_ID,
-        secretAccessKey: AWS_SECRET_ACCESS_KEY,
-        region: 'eu-west-1',
-      },
-      s3UploadOptions: {
-        ACL: '',
-        Bucket: BUCKET,
-        ContentType(fileName) {
-          if(/\.css/.test(fileName)) {
-            return 'text/css'
-          }
-          if(/\.js/.test(fileName)) {
-            return 'text/javascript'
-          }
-        }
-      },
-      directory: 'dist'
-    })
+//     new S3Plugin({
+//       s3Options: {
+//         accessKeyId: AWS_ACCESS_KEY_ID,
+//         secretAccessKey: AWS_SECRET_ACCESS_KEY,
+//         region: 'eu-west-1',
+//       },
+//       s3UploadOptions: {
+//         ACL: '',
+//         Bucket: BUCKET,
+//         ContentType(fileName) {
+//           if(/\.css/.test(fileName)) {
+//             return 'text/css'
+//           }
+//           if(/\.js/.test(fileName)) {
+//             return 'text/javascript'
+//           }
+//         }
+//       },
+//       directory: 'dist'
+//     })
 
   ],
   module: {
