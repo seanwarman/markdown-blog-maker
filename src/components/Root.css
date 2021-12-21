@@ -19,11 +19,8 @@ html, body {
 }
 
 #root {
+  padding: 50px;
   width: 100%;
-}
-
-#layout {
-  position: relative;
 }
 
 h1 {
@@ -41,7 +38,7 @@ h1:first-child {
 
 body > div {
   max-width: 750px;
-  margin: 0 370px 0 0;
+  margin: 0px 50px;
 }
 
 pre {
@@ -81,6 +78,18 @@ a {
   color: #fce1d5;
 }
 
+a:active {
+  color: white;
+}
+
+a:visited {
+  color: #d9c0b5;
+}
+
+a.back:visited {
+  color: #fce1d5;
+}
+
 img {
   width: 100%;
 }
@@ -103,7 +112,7 @@ th , td {
   position: relative;
   left: 0;
   right: 0;
-  height: 336px;
+  height: 331px;
   background-size: cover;
   background-position-y: center;
 }
@@ -126,47 +135,35 @@ th , td {
 
 @media(max-width: 1300px) {
   body > div {
-    /* max-width: 560px; */
     font-size: 1.1em;
   }
 }
 
-@media (min-width: 1701px) {
+@media (min-width: 1001px) {
   .sider {
-    position: absolute;
+    position: fixed;
+    left: 0px;
+    top: 75px;
+    margin-right: 80%;
+    bottom: 0;
+    overflow: auto;
+    padding-top: 290px;
   }
+
+  .sider::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .sider::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+
+  .sider::-webkit-scrollbar-thumb-hover {
+    background-color: transparent;
+  }
+
 
   .back {
-    position: absolute;
-  }
-}
-
-@media (max-width: 1700px) {
-  h1 {
-    /* font-size: 1.7em; */
-  }
-
-  h1:first-child {
-    margin: 63px 0;
-  }
-
-  #root {
-    padding: 50px;
-  }
-
-  .sider {
-    /* font-size: 1.4em; */
-  }
-
-  .sider li {
-    margin: 1em 0;
-  }
-
-  .sider ul {
-    margin-top: 3em;
-  }
-
-  body > div {
-    margin: 0px 50px;
+    position: fixed;
   }
 }
