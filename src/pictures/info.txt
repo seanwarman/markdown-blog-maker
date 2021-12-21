@@ -1,0 +1,14 @@
+
+Hope you enjoy your new logo, here are the people that
+made your beautiful logo happen :)
+font name: Cormorant-SemiBold
+font link: https://fonts.google.com/specimen/Cormorant
+font author: Christian Thalmann
+font author site: http://www.myfonts.com/foundry/Catharsis_Fonts/
+
+
+icon designer: Tim Shedor
+icon designer link: /tshedor
+        
+{"bg":"#0D9E86","icon":"#FBE1D5","font":"#FFFFFF","slogan":"#ffffff"}
+      

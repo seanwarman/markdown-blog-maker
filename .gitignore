@@ -3,7 +3,4 @@ node_modules
 dist
 src/posts/**/*.md
 src/posts/**/*.md
-src/pictures/vector/*.svg
-src/pictures/*.png
-src/pictures/*.txt
 credentials.js
